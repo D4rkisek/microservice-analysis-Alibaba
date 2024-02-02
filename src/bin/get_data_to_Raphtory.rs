@@ -1,8 +1,9 @@
 use raphtory::{
     algorithms::pathing::temporal_reachability::temporally_reachable_nodes, core::utils::hashing,
-    graph_loader::source::csv_loader::CsvLoader, prelude::*,
+    graph_loader::source::csv_loader::CsvLoader, 
+    prelude::*,
 };
-use serde::Deserialize;
+use serde_derive::Deserialize;
 use std::{
     env,
     path::{Path, PathBuf},
@@ -59,9 +60,11 @@ fn main(){
             .load_into_graph(&g, |row: CallGraphRow, g: &Graph| {
 
                 g.add_edge(
-                    CallGraphRow.timestamp,
-                    CallGraphRow.um,
-                    CallGraphRow.dm,
+                    CallGraphRow::timestamp,
+                    CallGraphRow::um.clone(),
+                    CallGraphRow::dm.clone(),
+                    None,
+                    None
                 )
                 .expect("Failed to add edge");
             })

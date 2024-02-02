@@ -141,7 +141,7 @@ fn main() {
         // proceed with file processing
     }
 }
-*/
+
 fn main(){
     let start = Instant::now();
 
@@ -160,4 +160,4 @@ fn main(){
 
     let duration = start.elapsed();
     println!("Time elapsed in the function with parallelism is: {:?}", duration);
-}
+}*/

@@ -12,11 +12,28 @@ tar = "0.4"
 rayon = "1.5"
 serde = "1.0"
 serde_derive = "1.0"
+raphtory = {version = "0.7.0", features = ["io"]}
+zip = {version = "0.6", optional = true}
 
 [dependencies.pyo3]
 version = "0.15"
 features = ["extension-module"]
 
+[features]
+default = []
+# Enables the graph loader io module
+io = ["dep:zip", "dep:neo4rs", "dep:bzip2", "dep:flate2", "dep:csv", "dep:serde_json", "dep:reqwest", "dep:tokio"]
+# Enables generating the pyo3 python bindings
+python = ["io", "dep:pyo3", "dep:pyo3-asyncio", "dep:num", "dep:display-error-chain", "dep:arrow2", "dep:kdam"]
+# search
+search = ["dep:tantivy"]
+# vectors
+vectors = ["dep:futures-util", "dep:async-trait", "dep:async-openai"]
+
 [[bin]]
 name = "my_executable"
 path = "src/main.rs"
+
+[[bin]]
+name = "get_data_to_Raphtory"
+path = "src/bin/get_data_to_Raphtory.rs"
