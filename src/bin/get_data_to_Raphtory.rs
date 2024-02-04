@@ -1,5 +1,4 @@
 use raphtory::{
-    algorithms::pathing::temporal_reachability::temporally_reachable_nodes, core::utils::hashing,
     graph_loader::source::csv_loader::CsvLoader, 
     prelude::*,
 };
@@ -56,14 +55,13 @@ fn main(){
         let now = Instant::now();
 
         CsvLoader::new(data_dir)
-            .with_csv_delimiter(b',')
+            .set_header(true)
             .load_into_graph(&g, |row: CallGraphRow, g: &Graph| {
-
                 g.add_edge(
-                    CallGraphRow::timestamp,
-                    CallGraphRow::um.clone(),
-                    CallGraphRow::dm.clone(),
-                    None,
+                    row.timestamp,
+                    row.um.clone(),
+                    row.dm.clone(),
+                    NO_PROPS,
                     None
                 )
                 .expect("Failed to add edge");
