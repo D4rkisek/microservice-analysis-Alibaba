@@ -90,7 +90,10 @@ fn main() {
         let csv_file_path = format!("{}/CallGraph_{}.csv", base_path, i);
 
         // Preprocess the data csv files
-        preprocess_and_load_data_in_memory(&csv_file_path);
+        match preprocess_and_load_data_in_memory(&csv_file_path) {
+            Ok(_) => println!("Successfully preprocessed {}", csv_file_path),
+            Err(e) => eprintln!("Failed to preprocess data from {}: {}", csv_file_path, e),
+        }
     });
 
     println!("All files processed.");
