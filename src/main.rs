@@ -63,7 +63,7 @@ fn extract_tar_gz(tar_path: &str, output_dir: &str) -> std::io::Result<()> {
 
 fn main() {
     // Configure Rayon to use 4 global threads
-    let pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
+    let _pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
 
     // Define base path
     let base_path = "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/";
@@ -102,14 +102,14 @@ fn main() {
 
 /* 
 fn main() {
-    if let Err(e) = extract_tar_gz("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_4.tar.gz",
+    if let Err(e) = extract_tar_gz("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_5.tar.gz",
                                    "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph"){
         eprintln!("Failed to extract: {}", e);
     }
 
-    preprocess_and_load_data_in_memory("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_4.csv");
+    preprocess_and_load_data_in_memory("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_5.csv");
 
-    fs::remove_file("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_4.tar.gz");
+    fs::remove_file("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_5.tar.gz");
 }
 
 fn main(){
