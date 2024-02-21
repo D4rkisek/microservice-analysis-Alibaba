@@ -9,9 +9,6 @@ use csv::WriterBuilder;
 use csv::Trim;
 use serde_derive::Serialize;
 use serde_derive::Deserialize;
-//use std::io::{self, BufReader, Read, Write};
-//use std::path::Path;
-//use std::time::Instant;
 
 #[derive(Serialize, Deserialize)]
 struct CallGraphRow {
@@ -66,10 +63,10 @@ fn main() {
     let _pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
 
     // Define base path
-    let base_path = "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/";
+    let base_path = "C:/Users/user/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/";
 
     // Generates paths dynamically along with their index
-    let file_names: Vec<_> = (6..21)
+    let file_names: Vec<_> = (471..480)
     .map(|i| (format!("{}/CallGraph_{}.tar.gz", base_path, i), i))
     .collect();
 
@@ -98,36 +95,3 @@ fn main() {
 
     println!("All files processed.");
 }
-
-
-/* 
-fn main() {
-    if let Err(e) = extract_tar_gz("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_5.tar.gz",
-                                   "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph"){
-        eprintln!("Failed to extract: {}", e);
-    }
-
-    preprocess_and_load_data_in_memory("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_5.csv");
-
-    fs::remove_file("C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_5.tar.gz");
-}
-
-fn main(){
-    let start = Instant::now();
-
-    let csv_files = vec![
-        "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_0.csv",
-        "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_1.csv",
-        "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_2.csv",
-        "C:/Users/maruf/Downloads/Alibaba-clusterData-master/cluster-trace-microservices-v2022/data/CallGraph/CallGraph_3.csv"
-        // Add more paths as needed
-    ];
-
-    // Process files in parallel
-    csv_files.par_iter().for_each(|file| {
-        preprocess_and_load_data_in_memory(file);
-    });
-
-    let duration = start.elapsed();
-    println!("Time elapsed in the function with parallelism is: {:?}", duration);
-}*/

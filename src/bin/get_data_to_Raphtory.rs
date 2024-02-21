@@ -19,7 +19,7 @@ pub struct CallGraphRow {
 fn main(){
     let args: Vec<String> = env::args().collect();
 
-    let default_data_dir: PathBuf = [env!("CARGO_MANIFEST_DIR"), "C:/Users/maruf/OneDrive/Desktop/CallingGraph"]
+    let default_data_dir: PathBuf = [env!("CARGO_MANIFEST_DIR"), "C:/Users/user/OneDrive/Desktop/CallingGraph"]
         .iter()
         .collect();
 
