@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": 15637107846767184444, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_25786", "shape": "dot"}, {"color": "#97c2fc", "id": 10097881933774403375, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_46967", "shape": "dot"}, {"color": "#97c2fc", "id": 357241507299391819, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_18891", "shape": "dot"}, {"color": "#97c2fc", "id": 13448363906475789058, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_19062", "shape": "dot"}, {"color": "#97c2fc", "id": 1440356232599247878, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_14100", "shape": "dot"}, {"color": "#97c2fc", "id": 5029026392137183679, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_32183", "shape": "dot"}, {"color": "#97c2fc", "id": 11579541747735973085, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_32507", "shape": "dot"}, {"color": "#97c2fc", "id": 18227735768418883316, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_21918", "shape": "dot"}, {"color": "#97c2fc", "id": 10466984071040144537, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_23805", "shape": "dot"}, {"color": "#97c2fc", "id": 11894757529696554692, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_71715", "shape": "dot"}, {"color": "#97c2fc", "id": 8972372941095335121, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_5185", "shape": "dot"}, {"color": "#97c2fc", "id": 17690930027353605184, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_25700", "shape": "dot"}, {"color": "#97c2fc", "id": 13024041299465656191, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_57535", "shape": "dot"}, {"color": "#97c2fc", "id": 13964448720395697184, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_61129", "shape": "dot"}, {"color": "#97c2fc", "id": 17618688753435780489, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_43093", "shape": "dot"}, {"color": "#97c2fc", "id": 4637877607675817620, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_13796", "shape": "dot"}, {"color": "#97c2fc", "id": 8975041462584559559, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_48992", "shape": "dot"}, {"color": "#97c2fc", "id": 16481436109735153966, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_35221", "shape": "dot"}, {"color": "#97c2fc", "id": 12538856445372574330, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_61494", "shape": "dot"}, {"color": "#97c2fc", "id": 14473286476326751324, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_32360", "shape": "dot"}, {"color": "#97c2fc", "id": 7797869365990666773, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_49824", "shape": "dot"}, {"color": "#97c2fc", "id": 2781031681673299362, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_64288", "shape": "dot"}, {"color": "#97c2fc", "id": 14894601914805254863, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_51249", "shape": "dot"}, {"color": "#97c2fc", "id": 3663909167183854919, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_1753", "shape": "dot"}, {"color": "#97c2fc", "id": 4608362409920878621, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_42943", "shape": "dot"}, {"color": "#97c2fc", "id": 17178714811674266343, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_24663", "shape": "dot"}, {"color": "#97c2fc", "id": 11786241760488587253, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_6132", "shape": "dot"}, {"color": "#97c2fc", "id": 9965831157120648995, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_42284", "shape": "dot"}, {"color": "#97c2fc", "id": 14881704479824505943, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_29838", "shape": "dot"}, {"color": "#97c2fc", "id": 9743620041314119113, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_58621", "shape": "dot"}, {"color": "#97c2fc", "id": 4377828251787408926, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_67414", "shape": "dot"}, {"color": "#97c2fc", "id": 130146132959852630, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_70208", "shape": "dot"}, {"color": "#97c2fc", "id": 15777778441602912761, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_21317", "shape": "dot"}, {"color": "#97c2fc", "id": 5298739880858500800, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_28941", "shape": "dot"}, {"color": "#97c2fc", "id": 10566448163983961500, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_17140", "shape": "dot"}, {"color": "#97c2fc", "id": 5941817287904270352, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_28422", "shape": "dot"}, {"color": "#97c2fc", "id": 7737521221861757985, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_57438", "shape": "dot"}, {"color": "#97c2fc", "id": 4466704276107914108, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_68779", "shape": "dot"}, {"color": "#97c2fc", "id": 13827999080238138036, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_19597", "shape": "dot"}, {"color": "#97c2fc", "id": 8343606329540633961, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_46326", "shape": "dot"}, {"color": "#97c2fc", "id": 14524669623470384428, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_20516", "shape": "dot"}, {"color": "#97c2fc", "id": 11093525103637024617, "image": "https://cdn-icons-png.flaticon.com/512/7584/7584620.png", "label": "MS_60342", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 10097881933774403375, "title": "", "to": 17618688753435780489, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 4466704276107914108, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 11894757529696554692, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 14894601914805254863, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 7797869365990666773, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 12538856445372574330, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 15777778441602912761, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 130146132959852630, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 10566448163983961500, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 18227735768418883316, "title": "", "to": 4637877607675817620, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 8972372941095335121, "title": "", "to": 2781031681673299362, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 8972372941095335121, "title": "", "to": 14524669623470384428, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 17618688753435780489, "title": "", "to": 11786241760488587253, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 14473286476326751324, "title": "", "to": 4466704276107914108, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 14473286476326751324, "title": "", "to": 18227735768418883316, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 14473286476326751324, "title": "", "to": 5029026392137183679, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 14473286476326751324, "title": "", "to": 17178714811674266343, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 14473286476326751324, "title": "", "to": 14881704479824505943, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 14894601914805254863, "title": "", "to": 4466704276107914108, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 3663909167183854919, "title": "", "to": 17690930027353605184, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 3663909167183854919, "title": "", "to": 11786241760488587253, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4608362409920878621, "title": "", "to": 2781031681673299362, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 17178714811674266343, "title": "", "to": 18227735768418883316, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 17178714811674266343, "title": "", "to": 15637107846767184444, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 17178714811674266343, "title": "", "to": 13964448720395697184, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 9965831157120648995, "title": "", "to": 17618688753435780489, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 9743620041314119113, "title": "", "to": 11786241760488587253, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 9743620041314119113, "title": "", "to": 357241507299391819, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4377828251787408926, "title": "", "to": 2781031681673299362, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 130146132959852630, "title": "", "to": 18227735768418883316, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 130146132959852630, "title": "", "to": 13448363906475789058, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 5298739880858500800, "title": "", "to": 5941817287904270352, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 5298739880858500800, "title": "", "to": 4608362409920878621, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 10566448163983961500, "title": "", "to": 15777778441602912761, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 10566448163983961500, "title": "", "to": 11579541747735973085, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 5941817287904270352, "title": "", "to": 10466984071040144537, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 7737521221861757985, "title": "", "to": 8972372941095335121, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 7737521221861757985, "title": "", "to": 4377828251787408926, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 17690930027353605184, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 11894757529696554692, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 18227735768418883316, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 8343606329540633961, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 12538856445372574330, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 5298739880858500800, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 1440356232599247878, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 4466704276107914108, "title": "", "to": 16481436109735153966, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 17690930027353605184, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 3663909167183854919, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 4466704276107914108, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 14894601914805254863, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 18227735768418883316, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 5029026392137183679, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 17178714811674266343, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 13024041299465656191, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 13448363906475789058, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 8975041462584559559, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 13827999080238138036, "title": "", "to": 10566448163983961500, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8e9b9e", "from": 11093525103637024617, "title": "", "to": 5298739880858500800, "value": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
