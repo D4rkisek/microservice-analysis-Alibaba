@@ -1595,7 +1595,7 @@ dependencies = [
 
 [[package]]
 name = "raphtory"
-version = "0.8.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf042d744f5c2db48619faefeb5887017d5faca19100b5e093ee75a045c9e212"
 dependencies = [
