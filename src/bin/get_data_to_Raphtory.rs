@@ -35,7 +35,7 @@ fn main(){
 
     let encoded_data_dir = data_dir.join("graphdb.bincode");
 
-    let graph = if encoded_data_dir.exists() {
+    let _graph = if encoded_data_dir.exists() {
         let now = Instant::now();
         let g = Graph::load_from_file(encoded_data_dir.as_path())
             .expect("Failed to load graph from encoded data files");
